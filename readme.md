@@ -47,7 +47,7 @@ Full Usage:
 
 		public function user_active_check()
 		{
-			if( Auth::user()->is_active )
+			if(! Auth::user()->is_active )
 				return Response::error(404);
 		}
 
