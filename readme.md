@@ -57,7 +57,7 @@ Full Usage:
 				return Response::error(404);
 		}
 
-		public function can_delete_item($params)
+		public function user_can_delete_item($params)
 		{
 			if(! Auth::user()->can_delete_item($params['id']) )
 				return Response::error(404);
