@@ -40,8 +40,12 @@ Full Usage:
 		public function __construct()
 		{
 			$this->filter('before', 'auth');
+			
 			$this->method_filter('before', 'user_active_check|role_check');
-			$this->method_filter('before', 'add_creator_to_input')->only(array('create', 'update'));
+
+			$this->method_filter('before', 'add_creator_to_input')
+				 ->only(array('create', 'update'));
+
 			$this->method_filer('before', 'user_can_delete_item')->only('destroy');
 		}
 
@@ -66,7 +70,9 @@ Full Usage:
 		public function log_activity($response)
 		{
 			ItemsManagerLogEntry::create(array(
-				'user_id' => Auth::user()->id, 'uri' => URI::current(), 'method' => Request::method()
+				'user_id' => Auth::user()->id,
+				'uri' => URI::current(),
+				'method' => Request::method()
 			));
 		}
 
@@ -77,6 +83,7 @@ Full Usage:
 
 		/**actions**/
 		* Imagine you have your standard RESTful actions over here
-		* get_index(), get_show($id), get_new(), post_create(), get_edit($id), put_update($id), delete_destroy($id)
+		* get_index(), get_show($id), get_new(), post_create(),
+		* get_edit($id), put_update($id), delete_destroy($id)
 		*/
 	}
