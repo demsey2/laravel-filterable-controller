@@ -41,6 +41,8 @@ class FilterableController extends Controller
 	/****Get method params for filters as assoc array**/
 	protected function method_params_assoc($method, $parameters)
 	{
+		$parameters = array_values($parameters);
+
 		if ($this->restful)
 			$action = strtolower(Request::method()).'_'.$method;
 		else
@@ -55,8 +57,8 @@ class FilterableController extends Controller
 
 		foreach($params as $i => $p) {
 			$key = $p->getName();
-			$val = isset($parameters[$i+1]) ?
-					$parameters[$i+1]
+			$val = isset($parameters[$i]) ?
+					$parameters[$i]
 				 : ($p->isDefaultValueAvailable() ? $p->getDefaultValue() : null);
 
 			$data[$key] = $val;
@@ -69,7 +71,6 @@ class FilterableController extends Controller
 	 * Execute a controller method with the given parameters.
 	 * Method filters get the arguments of the method they are filtering
 	 * passed to them in the same order.
-	 * While normal filters don't get anything passed to them
 	 *
 	 * @param  string    $method
 	 * @param  array     $parameters
